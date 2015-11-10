@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","ruby","node.js"]);
+          setupLanguages(["shell","ruby","javascript"]);
         });
       </script>
   </head>
@@ -30,7 +30,7 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="node.js">node.js</a>
+              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -46,24 +46,40 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="installation">Installation</h1>
+        <h1 id="intro">Intro</h1>
 
-<p>To install you can use any of our <a href="#">open-source SDKs</a>. Currently available: Ruby and Node.</p>
+<p>To use our api, all you need is a token. You&rsquo;ll be able to use up to 100 calls a month for free. Once you have a valid credit-card you can use our API for unlimited calls. You pay per call. In case you use PDF file with more than one page, each page will count as one call.<br/>
+When you call our service, you can either upload a file from your local machine or specify a url. We will detect the text in the file and return you a response with the text inside.
+All calls are secure using ssl and we do not save any file you use to upload. </p>
+
+<h3 id="base-http-endpoint">Base HTTP Endpoint</h3>
+
+<p><code class="prettyprint">https://api.scanr.xyz/ocr?token=YOUR_TOKEN</code></p>
+
+<h3 id="language">Language</h3>
+
+<p>You can select <a href="//www.scanr.xyz/faq#languages">any language from this list</a>. The default is English. To use different language pass the parameter <code class="prettyprint">lang</code> to your call. For instance: 
+<code class="prettyprint">https://api.scanr.xyz/ocr?token=YOUR_TOKEN&amp;lang=heb</code></p>
+
+<h1 id="installation">Installation</h1>
+
+<p>To install you can use any of our <a href="#">open-source SDKs</a>. Currently available: Ruby and javascript.</p>
 <pre class="highlight shell"><code><span class="c"># No need.</span>
 </code></pre>
-<pre class="highlight plaintext"><code>gem install scanr
+<pre class="highlight javascript"><code><span class="nx">npm</span> <span class="nx">install</span> <span class="nx">scanr</span>
 </code></pre>
-<pre class="highlight ruby"><code><span class="n">npm</span> <span class="n">install</span> <span class="n">scanr</span>
+<pre class="highlight ruby"><code><span class="n">gem</span> <span class="n">install</span> <span class="n">scanr</span>
 </code></pre>
 
 <h1 id="authentication">Authentication</h1>
 
-<p>In order to authenticate yourself all you need is your <a href="//www.scanr.xyz/dashboard">token</a>.</p>
-<pre class="highlight ruby"><code><span class="n">scanr</span> <span class="o">=</span> <span class="no">Scanr</span><span class="p">.</span><span class="nf">new</span> <span class="s1">'YOUR_TOKEN'</span>
-</code></pre>
-<pre class="highlight plaintext"><code>var scanr = require('scanr')('YOUR_TOKEN')
-</code></pre>
+<p>In order to authenticate yourself all you need is your <a href="//www.scanr.xyz/dashboard">token</a>.<br/>
+If you use one of the SDKs you can pass a second parameter to select your language.</p>
 <pre class="highlight shell"><code><span class="c"># No need.</span>
+</code></pre>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">scanr</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'scanr'</span><span class="p">)(</span><span class="s1">'YOUR_TOKEN'</span><span class="p">,</span> <span class="p">{</span><span class="na">lang</span><span class="p">:</span> <span class="s1">'eng'</span><span class="p">})</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="n">scanr</span> <span class="o">=</span> <span class="no">Scanr</span><span class="p">.</span><span class="nf">new</span> <span class="s1">'YOUR_TOKEN'</span><span class="p">,</span> <span class="s1">'eng'</span>
 </code></pre>
 
 <h1 id="ocr">OCR</h1>
@@ -76,7 +92,7 @@
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST http://api.scanr.xyz/ocr?token=YOUR_TOKEN</code></p>
+<p><code class="prettyprint">POST https://api.scanr.xyz/ocr?token=YOUR_TOKEN</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -99,13 +115,13 @@
 <aside class="notice">
 You can upload any of the supported types. File size can be up to 5MB.
 </aside>
+<pre class="highlight shell"><code>curl -F <span class="s2">"image=@/path/to/image.png"</span> https://api.scanr.xyz/ocr?token<span class="o">=</span>YOUR_TOKEN
+</code></pre>
+<pre class="highlight javascript"><code><span class="nx">scanr</span><span class="p">.</span><span class="nx">ocr</span><span class="p">(</span><span class="s1">'/path/to/image.png'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">text</span><span class="p">){</span>
+  <span class="c1">//text contains the text in the file</span>
+<span class="p">}</span>
+</code></pre>
 <pre class="highlight ruby"><code><span class="n">scanr</span><span class="p">.</span><span class="nf">ocr</span> <span class="s1">'/path/to/image.png'</span>
-</code></pre>
-<pre class="highlight plaintext"><code>scanr.ocr('/path/to/image.png', function(err, text){
-  //text contains the text in the file
-}
-</code></pre>
-<pre class="highlight shell"><code>curl -F <span class="s2">"image=@/path/to/image.png"</span> http://api.scanr.xyz/ocr?token<span class="o">=</span>YOUR_TOKEN
 </code></pre>
 
 <h2 id="existing-file-url">Existing file URL</h2>
@@ -114,7 +130,7 @@ You can upload any of the supported types. File size can be up to 5MB.
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">POST http://api.scanr.xyz/ocr?token=YOUR_TOKEN</code></p>
+<p><code class="prettyprint">POST https://api.scanr.xyz/ocr?token=YOUR_TOKEN</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -128,7 +144,7 @@ You can upload any of the supported types. File size can be up to 5MB.
 <tr>
 <td>url</td>
 <td>The fill url of the file to use</td>
-<td>http://i.imgur.com/fYY6P4Y.png</td>
+<td>https://i.imgur.com/fYY6P4Y.png</td>
 </tr>
 </tbody></table>
 
@@ -139,13 +155,11 @@ You can upload any of the supported types. File size can be up to 5MB.
 <aside class="notice">
 The url path have to end with a valid type (`png`, `jpg` etc&hellip;)
 </aside>
-<pre class="highlight ruby"><code><span class="n">scanr</span><span class="p">.</span><span class="nf">ocr</span> <span class="s1">'http://path.com/to/image.png'</span>
+<pre class="highlight ruby"><code><span class="n">scanr</span><span class="p">.</span><span class="nf">ocr</span> <span class="s1">'https://path.com/to/image.png'</span>
 </code></pre>
-<pre class="highlight plaintext"><code>scanr.ocr('http://path.com/to/image.png', function(err, text){
-  //text contains the text in the file
-}
-</code></pre>
-<pre class="highlight shell"><code>curl --data <span class="s2">"url=http://path.com/to/image.png"</span> http://api.scanr.xyz/ocr?token<span class="o">=</span>YOUR_TOKEN
+<pre class="highlight javascript"><code><span class="nx">scanr</span><span class="p">.</span><span class="nx">ocr</span><span class="p">(</span><span class="s1">'https://path.com/to/image.png'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">text</span><span class="p">){</span>
+  <span class="c1">//text contains the text in the file</span>
+<span class="p">}</span>
 </code></pre>
 
 <h2 id="pdf">PDF</h2>
@@ -214,7 +228,7 @@ The url path have to end with a valid type (`png`, `jpg` etc&hellip;)
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
                 <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="node.js">node.js</a>
+                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
