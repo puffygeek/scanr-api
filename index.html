@@ -52,6 +52,25 @@
 When you call our service, you can either upload a file from your local machine or specify a url. We will detect the text in the file and return you a response with the text inside.
 All calls are secure using ssl and we do not save any file you use to upload. </p>
 
+<blockquote>
+<p>Basic example</p>
+</blockquote>
+<pre class="highlight shell"><code>curl --data <span class="s2">"url=https://i.imgur.com/fYY6P4Y.png"</span> http://api.scanr.xyz/ocr?token<span class="o">=</span>YOUR_TOKEN&amp;lang<span class="o">=</span>eng
+</code></pre>
+<pre class="highlight javascript"><code><span class="nx">npm</span> <span class="nx">install</span> <span class="nx">scanr</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">scanr</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'scanr'</span><span class="p">)(</span><span class="s1">'YOUR_TOKEN'</span><span class="p">,</span> <span class="p">{</span><span class="na">lang</span><span class="p">:</span> <span class="s1">'eng'</span><span class="p">});</span>
+<span class="nx">scanr</span><span class="p">.</span><span class="nx">ocr</span><span class="p">(</span><span class="s1">'https://i.imgur.com/fYY6P4Y.png'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">text</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//{text: 'hello world!'}</span>
+</code></pre>
+<pre class="highlight ruby"><code><span class="n">gem</span> <span class="n">install</span> <span class="n">scanr</span>
+<span class="n">scanr</span> <span class="o">=</span> <span class="no">Scanr</span><span class="p">.</span><span class="nf">new</span> <span class="s1">'YOUR_TOKEN'</span><span class="p">,</span> <span class="s1">'eng'</span>
+<span class="nb">p</span> <span class="n">scanr</span><span class="p">.</span><span class="nf">ocr</span> <span class="s1">'https://i.imgur.com/fYY6P4Y.png'</span> 
+<span class="c1">#{text: 'hello world!'}</span>
+</code></pre>
+
 <h3 id="base-http-endpoint">Base HTTP Endpoint</h3>
 
 <p><code class="prettyprint">https://api.scanr.xyz/ocr?token=YOUR_TOKEN</code></p>
@@ -74,7 +93,8 @@ All calls are secure using ssl and we do not save any file you use to upload. </
 <h1 id="authentication">Authentication</h1>
 
 <p>In order to authenticate yourself all you need is your <a href="//www.scanr.xyz/dashboard">token</a>.<br/>
-If you use one of the SDKs you can pass a second parameter to select your language.</p>
+If you use one of the SDKs you can pass a second parameter to select your language.<br/>
+The second object is optional and use it if you want to set a specific language (default is English).</p>
 <pre class="highlight shell"><code><span class="c"># No need.</span>
 </code></pre>
 <pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">scanr</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'scanr'</span><span class="p">)(</span><span class="s1">'YOUR_TOKEN'</span><span class="p">,</span> <span class="p">{</span><span class="na">lang</span><span class="p">:</span> <span class="s1">'eng'</span><span class="p">})</span>
@@ -100,11 +120,18 @@ If you use one of the SDKs you can pass a second parameter to select your langua
 <tr>
 <th>Parameter</th>
 <th>Description</th>
+<th>Via</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>file</td>
 <td>The file you want to upload</td>
+<td>Multipart</td>
+</tr>
+<tr>
+<td>lang</td>
+<td>The <a href="//www.scanr.xyz/faq#languages">language</a> to use. English is default. Optional.</td>
+<td>url param</td>
 </tr>
 </tbody></table>
 
@@ -143,8 +170,13 @@ You can upload any of the supported types. File size can be up to 5MB.
 </thead><tbody>
 <tr>
 <td>url</td>
-<td>The fill url of the file to use</td>
+<td>The url of the file</td>
 <td>https://i.imgur.com/fYY6P4Y.png</td>
+</tr>
+<tr>
+<td>lang</td>
+<td>The <a href="//www.scanr.xyz/faq#languages">language</a> to use. English is default. Optional.</td>
+<td><code class="prettyprint">heb</code></td>
 </tr>
 </tbody></table>
 
