@@ -65,7 +65,7 @@ All calls are secure using ssl and we do not save any file you use to upload. </
 <span class="kd">var</span> <span class="nx">scanr</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'scanr'</span><span class="p">)(</span><span class="s1">'YOUR_TOKEN'</span><span class="p">,</span> <span class="p">{</span><span class="na">lang</span><span class="p">:</span> <span class="s1">'eng'</span><span class="p">});</span>
 <span class="nx">scanr</span><span class="p">.</span><span class="nx">ocr</span><span class="p">(</span><span class="s1">'https://i.imgur.com/fYY6P4Y.png'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">text</span><span class="p">){</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">text</span><span class="p">);</span>
-<span class="p">}</span>
+<span class="p">});</span>
 
 <span class="c1">//{text: 'hello world!'}</span>
 </code></pre>
