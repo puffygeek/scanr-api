@@ -130,12 +130,12 @@ The second object is optional and use it if you want to set a specific language 
 <tr>
 <td>file</td>
 <td>The file you want to upload</td>
-<td>Multipart</td>
+<td>Multipart (POST)</td>
 </tr>
 <tr>
 <td>lang</td>
 <td>The <a href="//www.scanr.xyz/faq#languages">language</a> to use. English is default. Optional.</td>
-<td>url param</td>
+<td>part of url param</td>
 </tr>
 </tbody></table>
 
@@ -146,7 +146,7 @@ The second object is optional and use it if you want to set a specific language 
 <aside class="notice">
 You can upload any of the supported types. File size can be up to 5MB.
 </aside>
-<pre class="highlight shell"><code>curl -F <span class="s2">"image=@/path/to/image.png"</span> https://api.scanr.xyz/ocr?token<span class="o">=</span>YOUR_TOKEN
+<pre class="highlight shell"><code>curl -F <span class="s2">"file=@/path/to/image.png"</span> https://api.scanr.xyz/ocr?token<span class="o">=</span>YOUR_TOKEN
 </code></pre>
 <pre class="highlight javascript"><code><span class="nx">scanr</span><span class="p">.</span><span class="nx">ocr</span><span class="p">(</span><span class="s1">'/path/to/image.png'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">text</span><span class="p">){</span>
   <span class="c1">//text contains the text in the file</span>
